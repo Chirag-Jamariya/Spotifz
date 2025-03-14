@@ -1,0 +1,100 @@
+---
+import Topbar from "../components/topbar.astro"
+---
+<html>
+    <head>
+        <title>Home</title>    
+    </head>
+    <body >
+        <header><Topbar></header>
+        <main>
+            <section class="py-32 bg-slate-900 relative overflow-hidden">
+                <div class="flex justify-center items-center flex-col">
+                  <h1 class="text-white text-6xl lg:text-5xl">Transfer Spotify to YouTube Music</h1>
+                  <div class="flex justify-center items-center mt-12 space-x-4 bg-slate-900 p-4 rounded-lg">
+                    <img src="/spotify.png" class="h-32">
+                    <div class="flex space-x-2">
+                      <img src="/arrow.png" class="h-8 animate-[glow_1s_infinite]" alt="arrow">
+                      <img src="/arrow.png" class="h-8 animate-[glow_1s_infinite_0.2s]" alt="arrow">
+                      <img src="/arrow.png" class="h-8 animate-[glow_1s_infinite_0.4s]" alt="arrow">
+                    </div>
+                    <img src="ytmusic.png" class="h-32">
+                  </div>
+                  <div class="flex mt-10 justify-center items-center text-center">
+                    <p class="text-white text-4xl lg:text-2xl mb-6 leading-relaxed lg:leading-snug lg:whitespace-nowrap">
+                      Convert your music library and playlists from Spotify into YouTube Music in a few easy steps
+                    </p>
+                  </div>
+                  <div class="mt-10">
+                    <!-- Use a link to navigate to the playlist page -->
+                    <a href="/playlists"><button class="text-white text-5xl bg-indigo-500 rounded-full p-4 h-24 w-96 font-medium lg:h-16 lg-w-80 lg:text-3xl justify-center items-center text-center py-0 transition-transform ease-in-out duration-500 hover:bg-indigo-700 hover:scale-110">
+                        Let's Start
+                    </button>
+                      
+                    </a>
+                  </div>
+                </div>
+              </section>
+              
+            
+            <section class="py-20">
+                <div id="bottom" class="flex flex-col justify-center items-center text-center">
+                    <div>
+                        <p class="text-black text-5xl lg:text-4xl font-bold ">How to transfer Spotify playlist to YouTube Music?</p>
+                        <ul class="flex flex-col lg:flex-row gap-8 justify-center text-center py-10">
+                            <li class="flex flex-col items-center gap-4">
+                                <div class="bg-indigo-600 text-white rounded-full h-20 w-20 lg:h-12 lg:w-12 lg:text-xl flex justify-center items-center text-4xl shadow-lg">
+                                    1
+                                </div>
+                                <span class="max-w-xs text-gray-700 text-3xl lg:text-base">
+                                    Link your Spotify and YouTube Music accounts, and authorize Spotifz.
+                                </span>
+                                <div class="mt-6">
+                                    <img src="/transferInfo1.svg" class="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-96 w-96 lg:h-60 lg:w-60 rounded-2xl p-5">
+                                </div>
+                            </li>
+                            <li class="flex flex-col items-center gap-4">
+                                <div class="bg-indigo-600 text-white rounded-full h-20 w-20 lg:h-12 lg:w-12 lg:text-xl flex justify-center items-center text-4xl shadow-lg">
+                                    2
+                                </div>
+                                <span class="max-w-xs text-gray-700 text-3xl lg:text-base">
+                                    Select what to transfer - we support your favorite songs, artists, albums, and your curated playlists.
+                                </span>
+                                <div class="mt-6 lg:mt-0">
+                                    <img src="/transferInfo2.svg" class="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-96 w-96 lg:h-60 lg:w-60 rounded-2xl p-5">
+                                </div>
+                            </li>
+                            <li class="flex flex-col items-center gap-4">
+                                <div class="bg-indigo-600 text-white rounded-full h-20 w-20 lg:h-12 lg:w-12 lg:text-xl flex justify-center items-center text-4xl shadow-lg">
+                                    3
+                                </div>
+                                <span class="max-w-xs text-gray-700 text-3xl lg:text-base">
+                                    Done! Your playlists and music will be automatically transferred to your YouTube Music account.
+                                </span>
+                                <div class="mt-6 lg:mt-0">
+                                    <img src="/transferInfo3.svg" class="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-96 w-96 lg:h-60 lg:w-60 rounded-2xl p-5">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            
+        </main>
+    </body>
+</html>
+
+<style>
+    @keyframes glow {
+        0%, 100% {
+            opacity: 0.3;
+            transform: translateX(0);
+        }
+        50% {
+            opacity: 1;
+            transform: translateX(10px);
+        }
+    }
+</style>
+

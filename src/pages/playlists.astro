@@ -1,0 +1,117 @@
+---
+/* This is your Astro component (playlists.astro) */
+import Topbar from "../components/topbar.astro"
+---
+<html>
+  <head>
+    <title>Conversion</title>
+  </head>
+  <body class="bg-slate-900">
+    <header><Topbar></Topbar></header>
+    <section class="py-20 relative overflow-hidden">
+      <div class="flex justify-center items-center flex-col">
+        <h1 class="text-white text-5xl mb-5">Okay Let's Start</h1>
+        <h1 class="text-white text-3xl mb-5">Click on the button</h1>
+        <button id="convert" class="text-white text-3xl bg-indigo-500 rounded-full p-4 h-16  w-60 font-medium  justify-center items-center text-center py-0 transition-transform ease-in-out duration-500 hover:bg-indigo-700 hover:scale-110">
+          Convert
+        </button>
+      </div> 
+    </section>
+    <section class="text-white">
+      <div class="flex justify-center items-center text-center flex-col">
+        <h1 class="text-4xl">Playlists</h1>
+        <div class=" flex justify-center items-center mx-20 text-2xl text-center ">
+          <ul id="playlist-names" class="mx-10"></ul>
+        </div>
+        
+      </div>
+    </section>
+  </body>
+</html>
+
+  
+<script>
+  interface Playlist {
+  id: string;
+  name: string;
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById('convert');
+    const playlistNamesElement = document.getElementById('playlist-names');
+    if (!playlistNamesElement) {
+  console.error('Playlist names element not found.');
+  return;  // Exit early if the element doesn't exist
+}
+    
+    // Add an event listener for the 'click' event
+    button?.addEventListener('click', async () => {
+        try {
+            const response = await fetch('http://localhost:8081/api/authenticate_spotify', {
+                method: 'GET',
+            });
+
+            if (!response.ok) {
+                // Handle response errors, for example, if response status is not OK
+                alert('Error fetching playlist data');
+                return;
+            }
+
+            const playlists: { id: string, name: string }[] = await response.json();
+            
+            // Now, handle playlists
+            if (Array.isArray(playlists) && playlists.length === 0) {
+                alert('No playlists found!');
+                return;
+            }
+            
+            playlistNamesElement.innerHTML = ''; // Clear previous playlists
+            playlists.forEach((playlist: { id: string, name: string }) => {
+                // Create list item with radio button for each playlist
+                const listItem = document.createElement('li');
+                listItem.textContent = playlist.name;
+                
+                // Create radio button and append it to the list item
+                const radioButton = document.createElement('input');
+                radioButton.type = 'radio';
+                radioButton.name = 'playlist';
+                radioButton.value = playlist.id;
+                radioButton.addEventListener('change', handlePlaylistSelection);  // Add event listener
+                listItem.appendChild(radioButton);
+                
+                playlistNamesElement.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching playlist songs:', error);
+            alert('Failed to fetch songs from the playlist.');
+        }
+    });
+});
+
+// Function to handle the selection of a playlist radio button
+function handlePlaylistSelection(event: Event): void {
+    const target = event.target as HTMLInputElement;  // Type assertion to ensure it's an input element
+    const playlistId = target.value;  // Get the ID of the selected playlist
+    console.log('Selected Playlist ID:', playlistId);  // Debugging
+
+    // Send the playlist ID to the backend to start conversion
+    fetch('http://localhost:8081/api/transfer_playlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ playlist_id: playlistId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Playlist Conversion Status:', data);  // Handle conversion status
+        alert(data.message);  // Display completion message (e.g., "Transfer complete!")
+    })
+    .catch(error => {
+        console.error('Error during playlist conversion:', error);
+        alert('Error during playlist conversion.');
+    });
+}
+
+</script>
+
+  
